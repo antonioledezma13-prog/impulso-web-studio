@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Web Studio Inc. – Plataformas Digitales de Alto Impacto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #050810;
+  --bg2:       #080d18;
+  --surface:   #0c1220;
+  --surface2:  #101828;
+  --blue:      #1a7bff;
+  --blue-glow: #2d8fff;
+  --blue-dark: #0f4fa8;
+  --gold:      #c9a227;
+  --gold-light:#e8be4a;
+  --silver:    #8fa0b8;
+  --text:      #dce8f5;
+  --muted:     #5a7090;
+  --border:    #152035;
+  --border2:   #1e3050;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--blue-dark); border-radius: 2px; }
+
+/* ========== CANVAS BG ========== */
+#canvas-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* ========== NAV ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(5,8,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo span { color: var(--blue); }
+.nav-logo em {
+  font-style: normal;
+  color: var(--gold);
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  display: block;
+  font-family: 'Rajdhani', sans-serif;
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--silver);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Rajdhani', sans-serif;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--blue-glow); }
+
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold) !important;
+  padding: 7px 20px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s !important;
+}
+.nav-cta:hover { background: var(--gold) !important; color: #000 !important; }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 60px 80px;
+  overflow: hidden;
+}
+
+.hero-grid-line {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,123,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,123,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,123,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.hero-glow2 {
+  position: absolute;
+  bottom: 10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 5s ease-in-out infinite reverse;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+.hero-content {
+  max-width: 720px;
+  animation: fadeUp 0.9s ease both;
+}
+
+.hero-eyebrow {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  flex: 0 0 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.hero-eyebrow::after {
+  flex: 0 0 20px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+}
+
+h1 .line-blue { color: var(--blue); display: block; }
+h1 .line-gold {
+  color: var(--gold);
+  display: block;
+  font-size: 0.55em;
+  letter-spacing: 6px;
+  font-weight: 400;
+  font-family: 'Rajdhani', sans-serif;
+  margin-top: 8px;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: #7a9abf;
+  line-height: 1.85;
+  max-width: 580px;
+  margin-bottom: 44px;
+  animation: fadeUp 0.9s 0.2s ease both;
+}
+
+.hero-desc strong { color: var(--text); }
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.9s 0.4s ease both;
+}
+
+.btn-main {
+  padding: 14px 36px;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  box-shadow: 0 0 20px rgba(26,123,255,0.3);
+}
+.btn-main:hover { box-shadow: 0 0 40px rgba(26,123,255,0.6); }
+
+.btn-ghost {
+  padding: 14px 36px;
+  background: transparent;
+  color: var(--gold);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-ghost:hover { background: var(--gold); color: #000; }
+
+.hero-stats {
+  margin-top: 60px;
+  display: flex;
+  gap: 48px;
+  animation: fadeUp 0.9s 0.6s ease both;
+}
+.stat-item {}
+.stat-num {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--blue-glow);
+  line-height: 1;
+}
+.stat-num span { color: var(--gold); }
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Rajdhani', sans-serif;
+  margin-top: 4px;
+}
+
+/* ========== SECTIONS COMMON ========== */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 60px;
+}
+
+.section-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-tag::before {
+  content: '';
+  width: 28px; height: 2px;
+  background: var(--gold);
+}
+
+h2 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+h2 span { color: var(--blue); }
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.8;
+  margin-bottom: 56px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+}
+
+/* ========== SERVICIOS ========== */
+#servicios { background: var(--bg2); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.service-card:hover { border-color: var(--blue-dark); transform: translateY(-4px); }
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  width: 52px; height: 52px;
+  background: rgba(26,123,255,0.1);
+  border: 1px solid rgba(26,123,255,0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ========== ABOUT ========== */
+#nosotros {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 40px;
+  position: relative;
+}
+.about-box::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(26,123,255,0.15), rgba(201,162,39,0.08), transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.quote-mark {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  color: rgba(26,123,255,0.15);
+  line-height: 0.7;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.about-box blockquote {
+  font-size: 1.05rem;
+  color: #8aaac8;
+  line-height: 1.9;
+  font-style: italic;
+  border: none;
+}
+
+.about-box blockquote strong { color: var(--text); font-style: normal; }
+
+.about-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.pillar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.pillar-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.pillar-text h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.pillar-text p {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ========== PRICING ========== */
+#planes { background: var(--bg2); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 36px 28px;
+  position: relative;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.plan-card:hover { transform: translateY(-6px); }
+
+.plan-card.featured {
+  border-color: var(--blue);
+  background: linear-gradient(160deg, #0c1628 0%, #0a1020 100%);
+  box-shadow: 0 0 60px rgba(26,123,255,0.15), inset 0 1px 0 rgba(26,123,255,0.3);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.plan-header { margin-bottom: 28px; }
+
+.plan-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.plan-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.plan-price-block {
+  margin: 24px 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.plan-amount {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--blue-glow);
+  line-height: 1;
+}
+.plan-amount sup {
+  font-size: 1.1rem;
+  vertical-align: super;
+  color: var(--gold);
+}
+
+.plan-timeline {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 28px;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: #7a9abf;
+  line-height: 1.5;
+}
+.plan-features li::before {
+  content: '◆';
+  color: var(--blue);
+  font-size: 0.5rem;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.plan-features li.no {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+.plan-features li.no::before { color: var(--muted); }
+
+.plan-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  text-align: center;
+  border-radius: 6px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.plan-btn.outline {
+  border: 1px solid var(--blue-dark);
+  color: var(--blue-glow);
+  background: transparent;
+}
+.plan-btn.outline:hover { background: var(--blue-dark); }
+
+.plan-btn.solid {
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(26,123,255,0.3);
+}
+.plan-btn.solid:hover { box-shadow: 0 4px 30px rgba(26,123,255,0.5); }
+
+.plan-btn.gold {
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+.plan-btn.gold:hover { background: var(--gold); color: #000; }
+
+/* ========== PROCESS ========== */
+#proceso { background: var(--bg); }
+
+.process-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 12px;
+}
+
+.process-track::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 60px;
+  right: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  z-index: 0;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 2px solid var(--blue);
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px rgba(26,123,255,0.3);
+}
+
+.process-step h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.process-step p {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.step-days {
+  margin-top: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ========== CONTACT ========== */
+#contacto {
+  background: var(--bg2);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-info h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.contact-info p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 36px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: var(--blue); transform: translateX(4px); }
+
+.cl-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.cl-icon.wa { background: rgba(37,211,102,0.15); }
+.cl-icon.ig { background: rgba(201,162,39,0.15); }
+.cl-icon.em { background: rgba(26,123,255,0.15); }
+
+.cl-text span {
+  display: block;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cl-text strong {
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.contact-form {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 40px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--blue); }
+
+.form-group select option { background: var(--surface2); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(26,123,255,0.3);
+  transition: box-shadow 0.2s;
+}
+.btn-submit:hover { box-shadow: 0 4px 40px rgba(26,123,255,0.55); }
+
+/* ========== FOOTER ========== */
+footer {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--text);
+}
+.footer-brand span { color: var(--blue); }
+.footer-brand em {
+  display: block;
+  font-style: normal;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+footer p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.footer-links a {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--blue-glow); }
+
+/* ========== WA FLOAT ========== */
+.wa-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 200;
+  width: 58px;
+  height: 58px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  text-decoration: none;
+  animation: waBounce 2.5s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+@keyframes waBounce {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+  50% { box-shadow: 0 4px 40px rgba(37,211,102,0.7); }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero, section { padding: 80px 24px; }
+  footer { padding: 32px 24px; }
+  #nosotros { grid-template-columns: 1fr; gap: 40px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .process-track { grid-template-columns: 1fr 1fr; }
+  .process-track::before { display: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANIMATED BG CANVAS -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div>
+      <span>IMPULSO</span> WEB STUDIO
+      <em>digital solutions inc.</em>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-grid-line"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Diseño · Desarrollo · Impacto Digital</div>
+    <h1>
+      Transformamos
+      <span class="line-blue">Ideas en Plataformas</span>
+      <span class="line-gold">de Alto Impacto</span>
+    </h1>
+    <p class="hero-desc">
+      En <strong>Impulso Web Studio</strong>, acompañamos a negocios y emprendedores 
+      en cada etapa de su crecimiento digital. Desde landing pages dinámicas hasta 
+      sistemas web complejos — <strong>no solo creamos páginas, construimos el motor 
+      digital que impulsa tu marca.</strong>
+    </p>
+    <div class="hero-btns">
+      <a href="#planes" class="btn-main">Ver Planes</a>
+      <a href="#contacto" class="btn-ghost">Solicitar Cotización</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Diseño a medida</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7<span>–</span>18</div>
+        <div class="stat-label">Días de entrega</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span>x</span></div>
+        <div class="stat-label">Más visibilidad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-tag">Lo que hacemos</div>
+  <h2>Nuestros <span>Servicios</span></h2>
+  <p class="section-sub">Soluciones digitales integrales para cada necesidad. Combinamos estética moderna con funcionalidad técnica sólida.</p>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🚀</div>
+      <h3>Landing Pages</h3>
+      <p>Páginas de aterrizaje optimizadas para conversión. Diseño impactante, velocidad extrema y enfoque en captar clientes.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3>Webs Corporativas</h3>
+      <p>Sitios completos que representan tu empresa con profesionalismo: servicios, equipo, portafolio y contacto integrado.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <h3>Tiendas Online</h3>
+      <p>E-commerce funcional con catálogo de productos, carrito de compras, pasarela de pagos y gestión de pedidos.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Sistemas Web</h3>
+      <p>Plataformas complejas: paneles de administración, sistemas de reservas, CRMs personalizados y más.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Diseño Responsivo</h3>
+      <p>Cada proyecto se adapta perfectamente a móvil, tablet y escritorio. Experiencia impecable en cualquier dispositivo.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📈</div>
+      <h3>SEO & Posicionamiento</h3>
+      <p>Optimización para buscadores. Tu negocio aparece cuando tus clientes te buscan en Google.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div>
+    <div class="section-tag">Nuestra esencia</div>
+    <h2>El Motor Detrás<br>de tu <span>Marca Digital</span></h2>
+    <p class="section-sub" style="margin-bottom:0;">Somos un estudio especializado con un enfoque claro: cada proyecto debe ser funcional, estético y estratégico.</p>
+    <div class="about-pillars" style="margin-top: 32px;">
+      <div class="pillar">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-text">
+          <h4>Enfoque Estratégico</h4>
+          <p>Cada decisión de diseño tiene un propósito de negocio detrás.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">💡</div>
+        <div class="pillar-text">
+          <h4>Innovación Constante</h4>
+          <p>Tecnologías modernas y tendencias actuales en cada entrega.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-text">
+          <h4>Acompañamiento Total</h4>
+          <p>Desde el primer boceto hasta el lanzamiento y más allá.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-box">
+      <span class="quote-mark">"</span>
+      <blockquote>
+        En Impulso Web Studio, <strong>transformamos ideas en plataformas digitales de alto impacto.</strong> Desde landing pages dinámicas hasta sistemas web complejos, nuestro enfoque combina <strong>estética moderna con funcionalidad técnica.</strong>
+        <br><br>
+        No solo creamos páginas; <strong>construimos el motor digital que impulsa tu marca hacia adelante.</strong>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANES -->
+<section id="planes">
+  <div style="text-align:center; margin-bottom: 56px;">
+    <div class="section-tag" style="justify-content:center;">Inversión</div>
+    <h2>Planes & <span>Precios</span></h2>
+    <p class="section-sub" style="margin: 0 auto;">Elige el plan que mejor se adapta a tu etapa de crecimiento digital. Todos incluyen diseño a medida.</p>
+  </div>
+
+  <div class="pricing-grid reveal">
+
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">Básico</div>
+        <div class="plan-desc">Presencia digital rápida y efectiva</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-amount"><sup>$</sup>180</div>
+        <div class="plan-timeline">Pago único · Entrega 7 días</div>
+      </div>
+      <ul class="plan-features">
+        <li>Página de inicio (Hero impactante)</li>
+        <li>Sección de servicios</li>
+        <li>Galería de trabajos (hasta 12 fotos)</li>
+        <li>Formulario + botón WhatsApp</li>
+        <li>Diseño 100% responsivo</li>
+        <li>1 ronda de revisiones</li>
+        <li class="no">Sección Nosotros & Testimonios</li>
+        <li class="no">Feed de Instagram</li>
+        <li class="no">Dominio incluido</li>
+      </ul>
+      <a href="#contacto" class="plan-btn outline">Comenzar</a>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-badge">★ MÁS POPULAR</div>
+      <div class="plan-header">
+        <div class="plan-name">Profesional</div>
+        <div class="plan-desc">Todo lo que tu negocio necesita</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-amount"><sup>$</sup>350</div>
+        <div class="plan-timeline">Pago único · Entrega 12 días</div>
+      </div>
+      <ul class="plan-features">
+        <li>Todo lo del plan Básico</li>
+        <li>Sección Nosotros & Testimonios</li>
+        <li>Galería ampliada (hasta 30 fotos)</li>
+        <li>SEO optimizado (Google)</li>
+        <li>Feed de Instagram integrado</li>
+        <li>3 rondas de revisiones</li>
+        <li>Dominio por 1 año incluido</li>
+        <li>Velocidad y rendimiento optimizados</li>
+        <li class="no">Mantenimiento post-entrega</li>
+      </ul>
+      <a href="#contacto" class="plan-btn solid">Comenzar</a>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">Premium</div>
+        <div class="plan-desc">Máximo impacto y escala total</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-amount"><sup>$</sup>550</div>
+        <div class="plan-timeline">Pago único · Entrega 18 días</div>
+      </div>
+      <ul class="plan-features">
+        <li>Todo lo del plan Profesional</li>
+        <li>Secciones y páginas adicionales</li>
+        <li>Animaciones y efectos premium</li>
+        <li>Formulario de cotización avanzado</li>
+        <li>3 meses de mantenimiento incluido</li>
+        <li>Soporte prioritario directo</li>
+        <li>Revisiones ilimitadas</li>
+        <li>Capacitación para gestionar el sitio</li>
+        <li>Certificado SSL + seguridad avanzada</li>
+      </ul>
+      <a href="#contacto" class="plan-btn gold">Comenzar</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div style="text-align:center; margin-bottom: 56px;">
+    <div class="section-tag" style="justify-content:center;">Cómo trabajamos</div>
+    <h2>Proceso <span>Claro</span> y Transparente</h2>
+    <p class="section-sub" style="margin: 0 auto;">De la idea al lanzamiento en pasos definidos y comunicación constante.</p>
+  </div>
+
+  <div class="process-track reveal">
+    <div class="process-step">
+      <div class="step-num">1</div>
+      <h4>Briefing</h4>
+      <p>Reunión inicial para entender tu negocio, objetivos y estilo deseado.</p>
+      <div class="step-days">Día 1</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">2</div>
+      <h4>Diseño</h4>
+      <p>Creamos la primera versión completa del sitio para tu revisión y aprobación.</p>
+      <div class="step-days">Días 2–6</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">3</div>
+      <h4>Revisiones</h4>
+      <p>Aplicamos cambios y ajustes según tus indicaciones hasta lograr la versión perfecta.</p>
+      <div class="step-days">Días 7–10</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">4</div>
+      <h4>Lanzamiento</h4>
+      <p>Publicamos en tu dominio, configuramos el hosting y te entregamos el acceso completo.</p>
+      <div class="step-days">Días 11–12</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-tag">Hablemos</div>
+  <h2>Inicia tu Proyecto <span>Hoy</span></h2>
+  <p class="section-sub">Cuéntanos tu idea. Respondemos en menos de 24 horas con una propuesta personalizada.</p>
+
+  <div class="contact-grid reveal">
+    <div class="contact-info">
+      <h3>Canales de Contacto</h3>
+      <p>Puedes escribirnos por el medio que prefieras. Estamos disponibles para responder todas tus preguntas antes de comenzar.</p>
+      <div class="contact-links">
+        <a href="https://wa.me/1234567890" class="contact-link">
+          <div class="cl-icon wa">💬</div>
+          <div class="cl-text">
+            <span>WhatsApp</span>
+            <strong>Respuesta inmediata</strong>
+          </div>
+        </a>
+        <a href="#" class="contact-link">
+          <div class="cl-icon ig">📸</div>
+          <div class="cl-text">
+            <span>Instagram</span>
+            <strong>@impulswebstudio</strong>
+          </div>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#b8dbd7d6ccd9dbccd7f8d1d5c8cdd4cbd7cfdddacbcccddcd1d796dbd7d5" class="contact-link">
+          <div class="cl-icon em">✉️</div>
+          <div class="cl-text">
+            <span>Email</span>
+            <strong><span class="__cf_email__" data-cfemail="e4878b8a908587908ba48d89949188978b938186979091808d8bca878b89">[email&#160;protected]</span></strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Empresa / Negocio</label>
+          <input type="text" placeholder="Nombre del negocio">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>WhatsApp o Email</label>
+        <input type="text" placeholder="+58 412 000 0000">
+      </div>
+      <div class="form-group">
+        <label>Plan de interés</label>
+        <select>
+          <option value="">Selecciona un plan...</option>
+          <option>Plan Básico – $180</option>
+          <option>Plan Profesional – $350</option>
+          <option>Plan Premium – $550</option>
+          <option>No sé, necesito orientación</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cuéntanos tu idea</label>
+        <textarea placeholder="Describe brevemente tu negocio y lo que necesitas..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="sendWhatsApp()">Enviar por WhatsApp →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <span>IMPULSO</span> WEB STUDIO
+    <em>digital solutions inc.</em>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <p>© 2025 Impulso Web Studio Inc. · Todos los derechos reservados</p>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/1234567890?text=Hola!%20Vi%20su%20página%20y%20me%20interesa%20saber%20más%20sobre%20sus%20servicios." class="wa-float" title="Escríbenos por WhatsApp">💬</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// === CANVAS PARTICLES ===
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.6 + 0.1;
+    this.color = Math.random() > 0.6 ? '#c9a227' : '#1a7bff';
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw connecting lines
+  particles.forEach((p, i) => {
+    particles.slice(i+1).forEach(p2 => {
+      const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (dist < 100) {
+        ctx.save();
+        ctx.globalAlpha = (1 - dist/100) * 0.08;
+        ctx.strokeStyle = '#1a7bff';
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// === SCROLL REVEAL ===
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// === BACKEND URL (cámbiala por tu URL de Render cuando la tengas) ===
+const BACKEND_URL = 'https://impulso-web-studio-backend.onrender.com';
+
+// === ENVÍO DE FORMULARIO AL BACKEND ===
+async function sendWhatsApp() {
+  const nombre   = document.querySelector('input[placeholder="Tu nombre"]').value.trim();
+  const empresa  = document.querySelector('input[placeholder="Nombre del negocio"]').value.trim();
+  const contacto = document.querySelector('input[placeholder="+58 412 000 0000"]').value.trim();
+  const plan     = document.querySelector('select').value;
+  const mensaje  = document.querySelector('textarea').value.trim();
+  const btn      = document.querySelector('.btn-submit');
+
+  if (!nombre || !contacto || !mensaje) {
+    alert('Por favor completa: Nombre, Contacto y Mensaje.');
+    return;
+  }
+
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/contacto`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, empresa, contacto, plan, mensaje })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      btn.textContent = '✅ ¡Solicitud enviada!';
+      btn.style.background = 'linear-gradient(90deg, #166534, #22c55e)';
+      // Limpiar form
+      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.querySelector('select').value = '';
+      document.querySelector('textarea').value = '';
+    } else {
+      btn.textContent = '❌ Error. Intenta de nuevo';
+      btn.style.background = 'linear-gradient(90deg, #7f1d1d, #ef4444)';
+      setTimeout(() => {
+        btn.textContent = 'Enviar por WhatsApp →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    }
+  } catch (err) {
+    btn.textContent = '❌ Sin conexión al servidor';
+    btn.style.background = 'linear-gradient(90deg, #7f1d1d, #ef4444)';
+    setTimeout(() => {
+      btn.textContent = 'Enviar por WhatsApp →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+}
+
+</script>
+</body>
+</html>
